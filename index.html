@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>DataExpo | 人像采集系统</title>
+  <link rel="stylesheet" href="css/cropper.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/ex_index.css">
+</head>
+
+<body>
+  <div class="mainBox">
+    <section>
+      <div class="crop">
+        <img src="" alt="" id="image" class="img-respone" style="height:5rem;opacity:0;">
+        <div class="tips_text">
+          <h1 class="title">人像采集三部曲</h1>
+          <div class="info m-b">
+            <p>1、点击拍照获取照片</p>
+            <p>2、拖动裁剪框相应区域，点击裁剪按钮</p>
+            <p>3、点击上传按钮完成</p>
+          </div>
+          <div class="desc">
+            <h2>说明：</h2>
+            <p>人像采集后，进场时使用人脸识别即可通过闸机</p>
+            <p>请到光线充足的环境下拍照，脸部清晰，无遮挡物</p>
+            <p>裁剪时可通过拖动裁剪框变化大小，双指缩放照片</p>
+            <p>裁剪框外可上下左右拖动照片</p>
+          </div>
+        </div>
+        <div class="tips">裁剪区域</div>
+      </div>
+      <div class="preview">
+        <img src="" alt="" id="preview" class="img-respone">
+        <div class="tips">预览区域</div>
+      </div>
+    </section>
+    <section class="wrapper_padding" id="apent">
+      <button type="button" name="button" class="btn btn-default btn-block m-b" id="getFile">点击拍照</button>
+      <button type="button" name="button" disabled class="btn btn-default btn-block m-b" id="getImg">裁剪</button>
+      <button type="button" name="button" disabled class="btn btn-success btn-block m-b" id="upload">上传</button>
+      <input type="file" id="file" accept="image/*" capture="camera">
+    </section>
+    <div class="modal fade bs-example-modal-sm" id="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-body text_success">
+            <h4>上传成功</h4>
+            <p id="info"></p>
+            <div style="width:200px;margin:0 auto;"><img src="" alt="" id="alertImg" class="img-respone"></div>
+          </div>
+          <div class="modal-footer" style="padding: 2px 15px">
+            <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" style="padding:5px 12px;">确定</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/jquery.min.js?v2.1.4"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/cropper.js"></script>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      var preview = document.getElementById('preview');
+      var oImage = document.getElementById('image');
+      var getFile = document.getElementById('getFile');
+      var oFile = document.getElementById('file');
+      var oUpload = document.getElementById('upload');
+      var getImg = document.getElementById('getImg');
+      var getImg = document.getElementById('getImg');
+      var $modal = $('#modal');
+      var cropper;
+
+      // 点击打开相机
+      getFile.onclick = function() {
+        oFile.click();
+        cropper.destroy();
+        cropper = null;
+      };
+      // 拍完照初始化裁剪
+      oFile.addEventListener('change', function(e) {
+        $(".crop").show();
+        $(".preview").hide();
+        $(".tips_text").hide();
+        $("#getFile").text('重新拍照');
+        var files = e.target.files;
+        var done = function(url) {
+          oFile.value = '';
+          oImage.src = url;
+        };
+        var reader;
+        var file;
+        var url;
+
+        if (files && files.length > 0) {
+          file = files[0];
+          if (URL) {
+            done(URL.createObjectURL(file));
+          } else if (FileReader) {
+            reader = new FileReader();
+            reader.onload = function(e) {
+              done(reader.result);
+            };
+            reader.readAsDataURL(file);
+          }
+          cropper = new Cropper(oImage, {
+            aspectRatio: NaN,
+            viewMode: 3,
+            dragMode: 'move',
+            cropBoxMovable: true,
+          });
+          $("#getImg").removeAttr('disabled');
+        }
+
+      });
+      // 抽出裁剪内容
+      function getInfo() {
+        var canvas;
+        if (cropper) {
+          canvas = cropper.getCroppedCanvas({
+            width: 640,
+            height: 480,
+          });
+          // 文件位置路径
+          return imgVal = canvas.toDataURL('image/jpeg', 1);
+        }
+      };
+      // 裁剪赋值预览
+      getImg.addEventListener('click', function() {
+        getInfo();
+        preview.src = imgVal;
+
+        $(".crop").hide();
+        $(".preview").show();
+        $("#upload").removeAttr('disabled');
+        $("#getImg").attr('disabled', 'disabled');
+      });
+      // 上传
+      oUpload.onclick = function() {
+        // 上传成功禁弹框
+        $modal.modal('show');
+        $("#alertImg").attr('src', imgVal);
+
+        var str = imgVal.replace(/^data:image\/\w+;base64,/, "");
+        var equalIndex = str.indexOf('=');
+        if (str.indexOf('=') > 0) {
+          str = str.substring(0, equalIndex);
+        }
+        var strLength = str.length;
+        var fileLength = parseInt(strLength - (strLength / 8) * 2);
+        var fileSize = (Math.round(fileLength / 1024)).toString() + 'KB';
+        console.log(fileSize);
+
+        //提交ajax请求
+        // $.ajax({
+        //   url: "http://localhost:9999",
+        //   data: b64,
+        //   type: "POST",
+        //   dataType: "text",
+        //   async: true,
+        //   timeout: 5000,
+        //   complete: function() {
+        //     console.log("end");
+        //   },
+        //   success: function(data, textStatus, jqXHR) {
+        //     console.log(data);
+        //     console.log(textStatus);
+        //     console.log(jqXHR);
+        //   },
+        //   error: function(textStatus, jqXHR) {
+        //     console.log("error");
+        //     console.log(textStatus);
+        //     console.log(jqXHR);
+        //   }
+        // });
+
+        // 上传成功禁用所有按钮
+        // $("#getFile").attr('disabled', 'disabled');
+        // $("#getImg").attr('disabled', 'disabled');
+        // $("#upload").attr('disabled', 'disabled');
+
+      };
+    });
+  </script>
+</body>
+
+</html>
