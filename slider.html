@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<style>
+  .runTime {
+    width: 100px;
+    height: 100px;
+    margin: 100px auto;
+    position: relative;
+  }
+
+  .runTime2 {
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+  }
+
+  .round {
+    transform-origin: center;
+    transform: rotate(-90deg);
+    transition: stroke-dasharray .3s ease-in;
+  }
+
+  .num {
+    width: 100px;
+    height: 100px;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 100px;
+    text-align: center;
+    color: #000;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+</style>
+
+<body>
+  <div class="runTime">
+    <svg xmlns="http://www.w3.org/200/svg" height="100" width="100">
+        <circle class="round" id="stroke_r" cx="50" cy="50" r="45" fill="none" stroke="#1ab394" stroke-width="5" stroke-dasharray="0,10000"/>
+    </svg>
+    <div class="runTime2">
+      <svg xmlns="http://www.w3.org/200/svg" height="100" width="100">
+          <circle class="round" cx="50" cy="50" r="45" fill="none" stroke="#ccc" stroke-width="5" stroke-dasharray="10000,10000"/>
+      </svg>
+    </div>
+    <div class="num" id="wait">20</div>
+  </div>
+
+</body>
+<script src="js/jquery.min.js"></script>
+<script>
+  var stroke_r = document.getElementById("stroke_r");
+  var circleLength = Math.floor(2 * Math.PI * stroke_r.getAttribute("r"));
+  var num = 0;
+  window.onload = function() {
+
+    var wait = document.getElementById("wait");
+    var temer = setInterval(function() {
+      wait.innerHTML--;
+      num++;
+      var runMun = 5 * num;
+      var val = parseFloat(runMun).toFixed(2);
+      val = Math.max(0, val);
+      val = Math.min(100, val);
+      stroke_r.setAttribute("stroke-dasharray", "" + circleLength * val / 100 + ",10000");
+
+      if (wait.innerHTML <= 0) {
+        wait.innerHTML = 0;
+        clearInterval(temer);
+      }
+    }, 1000);
+
+
+  };
+</script>
+
+</html>

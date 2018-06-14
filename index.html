@@ -1,11 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh">
 
 <head>
-  <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>DataExpo | 人像采集系统</title>
+  <title>演示项目Demo</title>
+  <meta name="keywords" />
+  <meta name="description" />
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
   <link rel="stylesheet" href="css/cropper.css">
   <link rel="stylesheet" href="css/bootstrap.min.css">
   <link rel="stylesheet" href="css/ex_index.css">
@@ -13,53 +18,70 @@
 
 <body>
   <div class="mainBox">
-    <section>
-      <div class="crop">
-        <img src="" alt="" id="image" class="img-respone" style="height:5rem;opacity:0;">
-        <div class="tips_text">
-          <h1 class="title">人像采集三部曲</h1>
-          <div class="info m-b">
-            <p>1、点击拍照获取照片</p>
-            <p>2、拖动裁剪框相应区域，点击裁剪按钮</p>
-            <p>3、点击上传按钮完成</p>
-          </div>
-          <div class="desc">
-            <h2>说明：</h2>
-            <p>人像采集后，进场时使用人脸识别即可通过闸机</p>
-            <p>请到光线充足的环境下拍照，脸部清晰，无遮挡物</p>
-            <p>裁剪时可通过拖动裁剪框变化大小，双指缩放照片</p>
-            <p>裁剪框外可上下左右拖动照片</p>
-          </div>
-        </div>
-        <div class="tips">裁剪区域</div>
-      </div>
-      <div class="preview">
-        <img src="" alt="" id="preview" class="img-respone">
-        <div class="tips">预览区域</div>
-      </div>
-    </section>
-    <section class="wrapper_padding" id="apent">
-      <button type="button" name="button" class="btn btn-default btn-block m-b" id="getFile">点击拍照</button>
-      <button type="button" name="button" disabled class="btn btn-default btn-block m-b" id="getImg">裁剪</button>
-      <button type="button" name="button" disabled class="btn btn-success btn-block m-b" id="upload">上传</button>
-      <input type="file" id="file" accept="image/*" capture="camera">
-    </section>
-    <div class="modal fade bs-example-modal-sm" id="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-      <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-          <div class="modal-body text_success">
-            <h4>上传成功</h4>
-            <p id="info"></p>
-            <div style="width:200px;margin:0 auto;"><img src="" alt="" id="alertImg" class="img-respone"></div>
-          </div>
-          <div class="modal-footer" style="padding: 2px 15px">
-            <button type="button" class="btn btn-sm btn-success" data-dismiss="modal" style="padding:5px 12px;">确定</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+    <form name="form-apply" id="form-apply">
+      <input name="photeGuid" id="photeGuid" type="hidden" />
 
+      <input type="hidden" value="${personGuid}" name="personGuid" id="personGuid" />
+      <input type="hidden" value="10023" name="expoId" id="expoId" />
+      <section>
+        <div class="crop">
+          <div><img src="" alt="" id="image" class="img-respone" style="height:412px;opacity:0;"></div>
+          <div class="tips_text">
+            <h2 class="title border-1px m-b">人像采集注意事项</h2>
+            <div class="info m-b">
+              <p>1、照片中不能有多人</p>
+              <p>2、照片人脸不能遮挡</p>
+              <p>3、照片不能模糊</p>
+              <p>4、人脸姿态端正</p>
+              <p>5、不能带墨镜</p>
+              <p>6、照片侧脸角度不能过大</p>
+            </div>
+            <div class="desc">
+              <h2 class="border-1px m-b">说明：</h2>
+              <p>人像采集后，进场时使用人脸识别即可通过闸机</p>
+              <p>请到光线充足的环境下拍照，脸部清晰，无遮挡物</p>
+              <p>裁剪时可通过拖动裁剪框变化大小，双指缩放照片</p>
+              <p>裁剪框外可上下左右拖动照片</p>
+            </div>
+            <img src="image/bg1.png" alt="" class="img_top_left">
+            <img src="image/bg2.png" alt="" class="img_btm_right">
+            <img src="image/bg3.png" alt="" class="img_top_right">
+            <img src="image/bg4.png" alt="" class="img_btm_left">
+          </div>
+        </div>
+        <div class="preview">
+          <img src="" alt="" id="preview" class="img-respone">
+          <!-- <div class="tips">
+            <span class="border-1px">预览区域</span>
+          </div> -->
+        </div>
+      </section>
+      <section class="wrapper_padding" id="apent">
+        <button type="button" name="button" class="btn btn-primary btn-block" id="getFile" style="margin-bottom: 25px;">点击拍照</button>
+        <button type="button" name="button" disabled class="btn btn-primary btn-block m-b" id="getImg">裁剪上传</button>
+        <!-- capture="camera"
+      <button type="button" name="button" disabled class="btn btn-success btn-block m-b" id="upload">上传</button>
+      -->
+        <input type="file" id="file" accept="image/*">
+      </section>
+      <!-- 蒙层 -->
+      <div id="mask" style="display:none;">
+        <div class="runTime">
+          <svg xmlns="http://www.w3.org/200/svg" height="100" width="100">
+              <circle class="round" id="stroke_r" cx="50" cy="50" r="45" fill="none" stroke="#1ab394" stroke-width="8" stroke-dasharray="0,10000"/>
+          </svg>
+          <div class="runTime2">
+            <svg xmlns="http://www.w3.org/200/svg" height="100" width="100">
+                <circle class="round" cx="50" cy="50" r="45" fill="none" stroke="#ccc" stroke-width="8" stroke-dasharray="10000,10000"/>
+            </svg>
+          </div>
+          <div class="num" id="wait">20</div>
+          <span class="text">请稍后</span>
+        </div>
+      </div>
+
+    </form>
+  </div>
   <script src="js/jquery.min.js?v2.1.4"></script>
   <script src="js/bootstrap.min.js"></script>
   <script src="js/cropper.js"></script>
@@ -69,21 +91,31 @@
       var oImage = document.getElementById('image');
       var getFile = document.getElementById('getFile');
       var oFile = document.getElementById('file');
-      var oUpload = document.getElementById('upload');
+      //var oUpload = document.getElementById('upload');
       var getImg = document.getElementById('getImg');
       var getImg = document.getElementById('getImg');
-      var $modal = $('#modal');
+
       var cropper;
 
       // 点击打开相机
       getFile.onclick = function() {
+        //获取浏览器的userAgent,并转化为小写
+        　　
+        var ua = navigator.userAgent.toLowerCase();　　 //判断是否是苹果手机，是则是true
+        　　
+        var isIos = (ua.indexOf('iphone') != -1) || (ua.indexOf('ipad') != -1);　　
+        if (isIos) {　　　　
+          $("#file").removeAttr("accept");　　
+        };
         oFile.click();
         cropper.destroy();
         cropper = null;
       };
       // 拍完照初始化裁剪
       oFile.addEventListener('change', function(e) {
+
         $(".crop").show();
+        $(".showTips").show();
         $(".preview").hide();
         $(".tips_text").hide();
         $("#getFile").text('重新拍照');
@@ -126,64 +158,69 @@
             height: 480,
           });
           // 文件位置路径
-          return imgVal = canvas.toDataURL('image/jpeg', 1);
+          return imgVal = canvas.toDataURL("image/jpeg", 1);
         }
       };
       // 裁剪赋值预览
       getImg.addEventListener('click', function() {
         getInfo();
         preview.src = imgVal;
-
         $(".crop").hide();
         $(".preview").show();
-        $("#upload").removeAttr('disabled');
+        //$("#upload").removeAttr('disabled');
         $("#getImg").attr('disabled', 'disabled');
+        //console.log(imgVal);
+        //上传图片
+        toUpload(imgVal);
+
       });
-      // 上传
-      oUpload.onclick = function() {
-        // 上传成功禁弹框
-        $modal.modal('show');
-        $("#alertImg").attr('src', imgVal);
+      //上传方法
+      function toUpload(imgVal) {
+        //AJax上传照片
+        var guid = $('#personGuid').val();
+        $.ajax({
+          type: "POST", //用POST方式传输
+          dataType: "JSON", //数据格式:JSON
+          url: '${ctx}/register/camera.html', //目标地址
+          data: {
+            "base64": imgVal,
+            "guid": guid
+          },
+          error: function(XMLHttpRequest, textStatus, errorThrown) {},
+          success: function(data) {
+            if (data.success) {
+              //成功后，等待20S再调整下一页面
+              $("#mask").show();
+              $('#photeGuid').val(data.name); //photoGuid
+              var stroke_r = document.getElementById("stroke_r");
+              var circleLength = Math.floor(2 * Math.PI * stroke_r.getAttribute("r"));
+              var num = 0;
+              var wait = document.getElementById("wait");
 
-        var str = imgVal.replace(/^data:image\/\w+;base64,/, "");
-        var equalIndex = str.indexOf('=');
-        if (str.indexOf('=') > 0) {
-          str = str.substring(0, equalIndex);
-        }
-        var strLength = str.length;
-        var fileLength = parseInt(strLength - (strLength / 8) * 2);
-        var fileSize = (Math.round(fileLength / 1024)).toString() + 'KB';
-        console.log(fileSize);
+              var temer = setInterval(function() {
+                wait.innerHTML--;
+                num++;
+                var runMun = 5 * num;
+                var val = parseFloat(runMun).toFixed(2);
+                val = Math.max(0, val);
+                val = Math.min(100, val);
+                stroke_r.setAttribute("stroke-dasharray", "" + circleLength * val / 100 + ",10000");
 
-        //提交ajax请求
-        // $.ajax({
-        //   url: "http://localhost:9999",
-        //   data: b64,
-        //   type: "POST",
-        //   dataType: "text",
-        //   async: true,
-        //   timeout: 5000,
-        //   complete: function() {
-        //     console.log("end");
-        //   },
-        //   success: function(data, textStatus, jqXHR) {
-        //     console.log(data);
-        //     console.log(textStatus);
-        //     console.log(jqXHR);
-        //   },
-        //   error: function(textStatus, jqXHR) {
-        //     console.log("error");
-        //     console.log(textStatus);
-        //     console.log(jqXHR);
-        //   }
-        // });
+                if (wait.innerHTML <= 0) {
+                  wait.innerHTML = 0;
+                  clearInterval(temer);
+                  //成功后，跳转到二维码页面
+                  $('#form-apply').attr('action', '${ctx}/register/returnResult.html');
+                  $('#form-apply').submit();
+                }
+              }, 1000);
 
-        // 上传成功禁用所有按钮
-        // $("#getFile").attr('disabled', 'disabled');
-        // $("#getImg").attr('disabled', 'disabled');
-        // $("#upload").attr('disabled', 'disabled');
-
-      };
+            } else { //失败
+              alert("上传失败");
+            }
+          }
+        });
+      }
     });
   </script>
 </body>
