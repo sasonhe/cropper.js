@@ -9,7 +9,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>演示项目Demo</title>
+    <title>第十五届中国国际中小企业博览会智能家电展</title>
     <meta name="keywords" />
     <meta name="description" />
     <meta charset="utf-8">
@@ -19,58 +19,86 @@
     <link rel="stylesheet" href="${ctx}/pub/de-css/bootstrap.min.css">
     <link rel="stylesheet" href="${ctx}/pub/de-css/ex_index.css">
   </head>
+  <style>
+    * {
+	  margin: 0;
+	  padding: 0;
+	}
+  </style>
   <body>
     <div class="mainBox">
       <form name="form-apply" id="form-apply">
         <input name="photeGuid" id="photeGuid" type="hidden" />
-    
         <input type="hidden" value="${personGuid}" name="personGuid" id="personGuid" />
         <input type="hidden" value="10023" name="expoId" id="expoId" />
+        <img src="" alt="" id="preview" class="img-respone" style="display:none;">
+        <div class="fiexd">
+          <div class="alert-wrapper">
+            <span class="close-btn" id="close">&#215;</span>
+            <div class="header">注意事项</div>
+            <div class="body">
+              <div class="ok">
+                <dl>
+                  <dt><img src="image/200.jpg" alt=""></dt>
+                  <dd>正确案例</dd>
+                </dl>
+              </div>
+              <div class="ng clearfix">
+                <dl>
+                  <dt><img src="image/1.jpg" alt=""></dt>
+                  <dd>照片中不能有多人</dd>
+                </dl>
+                <dl>
+                  <dt><img src="image/2.jpg" alt=""></dt>
+                  <dd>照片人脸不能遮挡</dd>
+                </dl>
+                <dl>
+                  <dt><img src="image/3.jpg" alt=""></dt>
+                  <dd>照片不能模糊</dd>
+                </dl>
+              </div>
+              <div class="ng clearfix">
+                <dl>
+                  <dt><img src="image/4.jpg" alt=""></dt>
+                  <dd>人脸姿态端正</dd>
+                </dl>
+                <dl>
+                  <dt><img src="image/5.jpg" alt=""></dt>
+                  <dd>不能带墨镜</dd>
+                </dl>
+                <dl>
+                  <dt><img src="image/6.jpg" alt=""></dt>
+                  <dd>照片侧脸角度过大</dd>
+                </dl>
+              </div>
+            </div>
+            <div class="footer"><span id="getFile">点击拍照</span></div>
+          </div>
+        </div>
         <section>
           <div class="crop">
-            <div><img src="" alt="" id="image" class="img-respone" style="height:6.2rem;opacity:0;"></div>
-            <div class="tips_text">
-              <h2 class="title border-1px m-b">人像采集注意事项</h2>
-              <div class="info m-b">
-                <p>1、照片中不能有多人</p>
-                <p>2、照片人脸不能遮挡</p>
-                <p>3、照片不能模糊</p>
-                <p>4、人脸姿态端正</p>
-                <p>5、不能带墨镜</p>
-                <p>6、照片侧脸角度不能过大</p>
+            <div class="person-wrapper">
+              <div class="person"><img src="image/picbg.png" alt="" class="img-respone"></div>
+              <div class="text">
+                <p>体验人脸识别快速入场</p>
               </div>
-              <div class="desc">
-                <h2 class="border-1px m-b">说明：</h2>
-                <p>人像采集后，进场时使用人脸识别即可通过闸机</p>
-                <p>请到光线充足的环境下拍照，脸部清晰，无遮挡物</p>
-                <p>裁剪时可通过拖动裁剪框变化大小，双指缩放照片</p>
-                <p>裁剪框外可上下左右拖动照片</p>
-              </div>
-              <img src="image/bg1.png" alt="" class="img_top_left">
-              <img src="image/bg2.png" alt="" class="img_btm_right">
-              <img src="image/bg3.png" alt="" class="img_top_right">
-              <img src="image/bg4.png" alt="" class="img_btm_left">
             </div>
-    
-            <!-- <div class="tips showTips" style="display:none;">
-              <span class="border-1px">裁剪区域</span>
-            </div> -->
-          </div>
-          <div class="preview">
-            <img src="" alt="" id="preview" class="img-respone">
-            <!-- <div class="tips">
-              <span class="border-1px">预览区域</span>
-            </div> -->
+            <div><img src="" alt="" id="image" class="img-respone" style="opacity:0;"></div>
           </div>
         </section>
         <section class="wrapper_padding" id="apent">
-          <button type="button" name="button" class="btn btn-primary btn-block" id="getFile" style="margin-bottom: 25px;">点击拍照</button>
-          <button type="button" name="button" disabled class="btn btn-primary btn-block m-b" id="getImg">裁剪上传</button>
-          <!--
-        <button type="button" name="button" disabled class="btn btn-success btn-block m-b" id="upload">上传</button>
-        -->
+          <button type="button" name="button" class="btn btn-primary btn-block" id="tipInfo">马上体验</button>
+
           <input type="file" id="file" accept="image/*" capture="camera">
         </section>
+        <div id="btn-show" class="" style="display:none;background:#fff;">
+          <div class="btn-item">
+            <button type="button" name="button" class="btn btn-default btn-block" id="resetTips" style="color: #333;background-color: #fff;border-color: #ccc;">重新拍照</button>
+          </div>
+          <div class="btn-item">
+            <button type="button" name="button" class="btn btn-primary btn-block" id="getImg">裁剪上传</button>
+          </div>
+        </div>
         <!-- 蒙层 -->
         <div id="mask" style="display:none;">
           <div class="runTime">
@@ -86,22 +114,28 @@
             <span class="text">请稍后</span>
           </div>
         </div>
-    
+
       </form>
     </div>
-  <script src="${ctx}/pub/de-js/jquery.min.js?v2.1.4"></script>
+  <script src="${ctx}/pub/de-js/jquery-1.9.1.min.js"></script>
   <script src="${ctx}/pub/de-js/bootstrap.min.js"></script>
   <script src="${ctx}/pub/de-js/cropper.js"></script>
   <script type="text/javascript">
+    $("#tipInfo").click(function() {
+      $(".fiexd").show();
+    });
+    $("#resetTips").click(function() {
+      $(".fiexd").show();
+    });
+    $("#close").click(function() {
+      $(".fiexd").hide();
+    });
     document.addEventListener('DOMContentLoaded', function() {
       var preview = document.getElementById('preview');
       var oImage = document.getElementById('image');
       var getFile = document.getElementById('getFile');
       var oFile = document.getElementById('file');
-      //var oUpload = document.getElementById('upload');
       var getImg = document.getElementById('getImg');
-      var getImg = document.getElementById('getImg');
-
       var cropper;
 
       // 点击打开相机
@@ -112,11 +146,21 @@
       };
       // 拍完照初始化裁剪
       oFile.addEventListener('change', function(e) {
+        var CH = document.body.clientHeight;
+        var imgHeight = 420;
+        if (CH <= 480) {
+          imgHeight = 420
+        } else {
+          imgHeight = 500;
+        };　
+        $("#image").css({
+          'height': imgHeight + 'px'
+        });
         $(".crop").show();
-        $(".showTips").show();
-        $(".preview").hide();
-        $(".tips_text").hide();
-        $("#getFile").text('重新拍照');
+        $(".fiexd").hide();
+        $(".person-wrapper").hide();
+        $("#btn-show").show();
+        $("#apent").hide();
         var files = e.target.files;
         var done = function(url) {
           oFile.value = '';
@@ -139,11 +183,10 @@
           }
           cropper = new Cropper(oImage, {
             aspectRatio: NaN,
-            viewMode: 3,
+            viewMode: 0,
             dragMode: 'move',
             cropBoxMovable: true,
           });
-          $("#getImg").removeAttr('disabled');
         }
 
       });
@@ -164,9 +207,9 @@
         getInfo();
         preview.src = imgVal;
         $(".crop").hide();
-        $(".preview").show();
-        //$("#upload").removeAttr('disabled');
+        $("#preview").show();
         $("#getImg").attr('disabled', 'disabled');
+        $("#resetTips").attr('disabled', 'disabled');
         //console.log(imgVal);
         //上传图片
         toUpload(imgVal);
@@ -179,12 +222,15 @@
         $.ajax({
           type: "POST", //用POST方式传输
           dataType: "JSON", //数据格式:JSON
-          url: '${ctx}/register/camera.html', //目标地址
+          url: '${ctx}/register/camera2.html', //目标地址
           data: {
             "base64": imgVal,
             "guid": guid
           },
-          error: function(XMLHttpRequest, textStatus, errorThrown) {},
+          error: function(XMLHttpRequest, textStatus, errorThrown) {
+            $("#getImg").attr('disabled', false);
+            $("#resetTips").attr('disabled', false);
+          },
           success: function(data) {
             if (data.success) {
               //成功后，等待20S再调整下一页面
@@ -215,6 +261,8 @@
 
             } else { //失败
               alert("上传失败");
+              $("#getImg").attr('disabled', false);
+              $("#resetTips").attr('disabled', false);
             }
           }
         });

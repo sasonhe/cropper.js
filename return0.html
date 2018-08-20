@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>演示项目Demo</title>
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    font-size: 100px;
+  }
+
+  @media screen and (max-width:640px) {
+    html {
+      font-size: 88.88px;
+    }
+  }
+
+  @media screen and (max-width:480px) {
+    html {
+      font-size: 66.66px;
+    }
+  }
+
+  @media screen and (max-width:320px) {
+    html {
+      font-size: 44.44px;
+    }
+  }
+
+
+  .border-1px {
+    position: relative;
+  }
+
+  .border-1px::after {
+    display: block;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    border-top: 1px solid #ccc;
+    width: 100%;
+    content: ' ';
+  }
+
+  @media (-webkit-device-pixel-ratio: 1.5),
+  (min-device-pixel-ratio: 1.5) {
+    .border-1px::after {
+      -webkit-transform: scaleY(0.7);
+      transform: scaleY(0.7);
+    }
+  }
+
+  @media (-webkit-device-pixel-ratio: 2),
+  (min-device-pixel-ratio: 2) {
+    .border-1px::after {
+      -webkit-transform: scaleY(0.5);
+      transform: scaleY(0.5);
+    }
+  }
+
+  @media (-webkit-device-pixel-ratio: 3),
+  (min-device-pixel-ratio: 3) {
+    .border-1px::after {
+      -webkit-transform: scaleY(0.33);
+      transform: scaleY(0.33);
+    }
+  }
+
+  .img-respone {
+    outline-width: 0px;
+    vertical-align: top;
+    border: 0px;
+    display: block;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .mainBox {
+    min-width: 320px;
+    max-width: 640px;
+    margin: 0 auto;
+    height: 100%;
+  }
+
+  .headName {
+    height: 40px;
+    padding: 0 15px;
+  }
+
+  .headName span {
+    display: inline-block;
+    font-size: 18px;
+    line-height: 40px;
+    text-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    font-weight: bold;
+  }
+
+  .headName span.name {
+    width: 100px;
+    height: 40px;
+    padding-right: 20px;
+    text-align: justify;
+    float: left;
+  }
+
+  .headName span.name:after {
+    content: '.';
+    width: 100%;
+    display: inline-block;
+    overflow: hidden;
+    height: 0;
+  }
+
+  .codeBox {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .codeBox .item-eucode {
+    text-align: center;
+    -webkit-box-flex: 1;
+    /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 1;
+    /* OLD - Firefox 19- */
+    -webkit-flex: 1;
+    /* Chrome */
+    -ms-flex: 1;
+    /* IE 10 */
+    flex: 1;
+    /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  }
+
+  .codeBox .item-img {
+    -webkit-box-flex: 0 0 140px;
+    /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 0 0 140px;
+    /* OLD - Firefox 19- */
+    -webkit-flex: 0 0 140px;
+    /* Chrome */
+    -ms-flex: 0 0 140px;
+    /* IE 10 */
+    flex: 0 0 140px;
+    /* NEW, Spec - Opera 12.1, Firefox 20+ */
+  }
+
+  .img-wrapper {
+    padding: 32px 0px 24px 15px;
+    width: 128px;
+    overflow: hidden;
+  }
+
+  .AddrInfo {
+    display: flex;
+    padding: 10px 15px;
+  }
+
+  .descInfo {
+    font-size: 13px;
+    padding: 10px 15px;
+    line-height: 22px;
+    text-align: justify;
+
+  }
+
+  .foot {
+    font-size: 13px;
+    line-height: 50px;
+    text-align: center;
+  }
+</style>
+
+<body>
+  <div class="mainBox">
+    <form id="myform" name="form-apply">
+      <input name="personGuId" id="personGuId" type="hidden" value="${guid}" />
+    </form>
+    <!-- logo -->
+    <div><img src="image/logo1.jpg" alt="" class="img-respone"></div>
+    <!-- 姓名 -->
+    <div class="headName border-1px">
+      <span class="name">姓名</span>
+      <span style="color:#337ab7;">张三</span>
+    </div>
+    <div class="headName border-1px">
+      <span class="name">注册码</span>
+      <span style="color:red;">95588</span>
+    </div>
+    <!-- <div class="headName border-1px">
+      <span class="name">人像状态</span><span style="color:#1ab394;">注册成功</span>
+    </div> -->
+    <!-- 二维码 头像-->
+    <div class="codeBox  border-1px">
+      <!-- <div class="item-img">
+        <div class="img-wrapper">
+          <img src="image/head.jpg" alt="" class="img-respone">
+        </div>
+      </div> -->
+      <div class="item-eucode">
+        <img width="230" height="230" src="image/img.png" />
+      </div>
+    </div>
+    <!-- 文字说明 -->
+    <div class="descInfo  border-1px">
+      <p>地址：琶洲-保利世贸博览馆（琶洲地铁站C出口即到）</p>
+      <p>日期：2018年6月7-9日</p>
+    </div>
+    <div class="descInfo  border-1px">
+      <p>请向工作人员出示二维码，即可快速打证入场！</p>
+      <p>温馨提示：长按二维码可保存至手机。</p>
+      <p>仅限本人使用，转发无效。</p>
+    </div>
+    <footer class="foot"><a href="javascript:;">数展科技提供技术支持</a></footer>
+  </div>
+  <script src="js/jquery.min.js?v2.1.4"></script>
+  <script src="js/bootstrap.min.js"></script>
+</body>
+<script>
+  //重新拍照
+  function restBut() {
+    $('#myform').attr('action', '${ctx}/register/restResult.html');
+    $('#myform').submit();
+  }
+</script>
+
+</html>
